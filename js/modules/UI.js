@@ -48,7 +48,7 @@ class UI{
     }
 
     addPagination(totalHits){
-        const numPage = Math.round(totalHits / 40);
+        const numPage = Math.round(totalHits / 24);
         if(pagination.innerHTML != ''){
             pagination.innerHTML= '';
         }
