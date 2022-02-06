@@ -1,4 +1,4 @@
-import { imgContainer, containerTitle }  from './Selectors.js';
+import { imgContainer, containerTitle, pagination }  from './Selectors.js';
 class UI{
 
     showimages(hits){
@@ -12,7 +12,7 @@ class UI{
                 </figure>
 
                 <div class="buttons-options">
-                    <a rel="noopener noreferrer" target="_blank" href="${webformatURL}">See Img</a>
+                    <a rel="noopener noreferrer" target="_blank" href="${webformatURL}">Open Img</a>
                     <a rel="noopener noreferrer" target="_blank" href="${pageURL}">See Img in Pixabay</a>
                 </div>
 
@@ -39,9 +39,28 @@ class UI{
 
     cleanContainer(){
         imgContainer.innerHTML = '';
+    }
+
+    cleanTitle(){
         if(containerTitle.firstElementChild.className == 'search-title'){
             containerTitle.firstElementChild.remove();
         }
+    }
+
+    addPagination(totalHits){
+        const numPage = Math.round(totalHits / 40);
+        if(pagination.innerHTML != ''){
+            pagination.innerHTML= '';
+        }
+
+        for(let i = 1; i <= numPage; i++){
+            const paginationA = document.createElement('button')
+            paginationA.classList.add('pagination-num');
+            paginationA.textContent = i;
+            pagination.append(paginationA);
+        }
+
+        pagination.style.display = 'block';
     }
 
 }

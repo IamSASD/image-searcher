@@ -1,19 +1,23 @@
 import { searchForm, searchInput, imgContainer, pagination, logo  } from './modules/Selectors.js'
 import Api from './modules/Api.js'
 import UI from './modules/UI.js';
+export { manageImages };
 
 const originPosition = window.location.origin;
 let api;
 let ui;
+let actualPage = 1;
+let inputValue;
 
 addEventListeners()
 function addEventListeners(){
+    //restore url to deafult
     window.addEventListener('DOMContentLoaded', () => {
         if(!window.location.origin){
             window.location.assign(originPosition);
         }
     });
-    //listen the submit event for the search form 
+    //listen the submit event for the search form
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -22,16 +26,13 @@ function addEventListeners(){
         ui = new UI();
 
         //get data of the Pixabay Api
-        const actualPage = 1;
-        const inputValue = searchInput.value;
-        const apikey = '25514852-1d008ecd4eb2683d344c63454';
-        const url = `https://pixabay.com/api/?key=${apikey}&q=${inputValue}&per_page=40&page=${actualPage}`;
-
-        api.getData(url)
-            .then((value) => manageImages(value));
+        inputValue = searchInput.value;
+        actualPage = 1;
+        api.contentData(inputValue, actualPage);
 
         searchForm.reset();//reset the search form
         ui.cleanContainer();//clean the img container
+        ui.cleanTitle();//clean title
         ui.searchTitle(inputValue);//add the title to the img container
     });
 
@@ -42,10 +43,20 @@ function addEventListeners(){
             window.location.assign(`${originPosition}#${idLogo}`);
         }
     });
+    //chage page nunber
+    pagination.addEventListener('click', (e) => {
+        if(e.target.className === 'pagination-num'){
+            const numValue = Number(e.target.textContent);
+            imgContainer.innerHTML = '';
+            actualPage = numValue;
+            api = new Api();
+            api.contentData(inputValue, actualPage);
+        }
+    });
 }
 
 function manageImages(value){
-    
+
     if(value.totalHits == 0){
         alert('No match founds');
         window.location.assign(originPosition);
@@ -54,9 +65,9 @@ function manageImages(value){
     ui = new UI();
     const { totalHits, hits } = value;
 
-    
+
     for(let i = 0; i < hits.length; i++){
-        
+
         //creater a HTML element that contain the images
         const imgCard = ui.showimages(hits[i]);
         const createDiv = document.createElement('div');
@@ -65,7 +76,7 @@ function manageImages(value){
         imgContainer.appendChild(createDiv);
 
     }
-    
+
     //change the position of the window
     const title = document.querySelector('#img-title');
     const idTitle = title.getAttribute('id');
@@ -74,6 +85,9 @@ function manageImages(value){
 
     //add button to go the original position
     ui.OriginPosition();
+
+    //add pagination to the page
+    ui.addPagination(totalHits);
 
 }
 

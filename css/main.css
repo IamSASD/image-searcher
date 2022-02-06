@@ -53,6 +53,7 @@ body{
     padding: 10px;
     text-transform: uppercase;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .img-container{
@@ -126,13 +127,41 @@ body{
     border-radius: 8px;
 }
 
+/*Pagination section*/
+.pagination{
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+}
+
+.pagination-num{
+    margin-left: 6px;
+    background-color: #548CFF;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pagination-num:first-child{
+    margin-left: 0;
+}
+
+/*Responsive*/
 @media screen and (min-width:600px){
     .img-container{
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-
+@media screen and (min-width:1000px){
+    .img-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 
 
