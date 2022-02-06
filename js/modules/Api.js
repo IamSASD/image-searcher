@@ -17,7 +17,7 @@ class Api{
 
     contentData(inputValue, actualPage){
         const apikey = '25514852-1d008ecd4eb2683d344c63454';
-        const url = `https://pixabay.com/api/?key=${apikey}&q=${inputValue}&per_page=40&page=${actualPage}`;
+        const url = `https://pixabay.com/api/?key=${apikey}&q=${inputValue}&per_page=24&page=${actualPage}`;
 
         this.getData(url)
             .then((value) => manageImages(value));
