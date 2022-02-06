@@ -1,4 +1,4 @@
-import { searchForm, searchInput, imgContainer, pagination } from './modules/Selectors.js'
+import { searchForm, searchInput, imgContainer, pagination  } from './modules/Selectors.js'
 import Api from './modules/Api.js'
 import UI from './modules/UI.js';
 
@@ -30,11 +30,15 @@ function addEventListeners(){
         ui.searchTitle(inputValue);//add the title to the img container
     });
 
-    //listen click to go the original position
+    //button go to top
     imgContainer.addEventListener('click', (e) => {
-        if(e.target.className == 'origin-position' || 'a-position'){
+        if(e.target.className === 'origin-position' || e.target.className === 'a-position'){
             window.scroll(0,0);
         }
+    });
+
+    window.addEventListener('scroll', () => {
+        console.log(window.scrollY, window.scrollX);
     });
 
 }
@@ -49,6 +53,7 @@ function manageImages(value){
         //creater a HTML element that contain the images
         const imgCard = ui.showimages(hits[i]);
         const createDiv = document.createElement('div');
+        createDiv.classList.add('img-card');
         createDiv.innerHTML = imgCard;
         imgContainer.appendChild(createDiv);
 

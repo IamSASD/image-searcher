@@ -57,6 +57,11 @@ body{
 
 .img-container{
     position: relative;
+    display: grid;
+    grid-template-columns: 90%px;
+    grid-auto-rows: 350px;
+    justify-content: center;
+    gap: 20px;
 }
 
 /*Button intial position*/
@@ -72,6 +77,60 @@ body{
     cursor: pointer;
 }
 
+/*Container title*/
+.search-title{
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*img cards*/
+.img-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+    overflow: hidden;
+    box-shadow: 3px 6px 20px 0px rgba(0,0,0,0.75);    
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/*IMG*/
+.img-content{
+    margin: 0;
+    text-align: center;
+    max-width: 100%;
+    max-height: 70%;
+    min-height: 70%;
+    margin-bottom: 5px;
+}
+
+.img-content img{
+    width: 100%;
+    height: 100%;    
+}
+
+/*Img card buttons*/
+.buttons-options a{
+    text-align: center;
+    min-width: 100%;
+    display: inline-block;
+    margin-bottom: 15px;
+    background-color: #548CFF;
+    padding: 5px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+@media screen and (min-width:600px){
+    .img-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 
 

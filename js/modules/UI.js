@@ -1,4 +1,4 @@
-import { imgContainer }  from './Selectors.js';
+import { imgContainer, containerTitle }  from './Selectors.js';
 class UI{
 
     showimages(hits){
@@ -7,18 +7,14 @@ class UI{
 
         const cardImg = `
 
-            <div clas="img-card">
-
                 <figure class="img-content">
-                    <img src="${previewURL}">
+                    <img src="${webformatURL}">
                 </figure>
 
                 <div class="buttons-options">
-                    <a rel="nopeener noreferrer" target="_blank" href="${webformatURL}">See Img</a>
-                    <a rel="nopeener noreferrer" target="_blank" href="${pageURL}">See Img in Pixabay</a>
+                    <a rel="noopener noreferrer" target="_blank" href="${webformatURL}">See Img</a>
+                    <a rel="noopener noreferrer" target="_blank" href="${pageURL}">See Img in Pixabay</a>
                 </div>
-
-            </div>
 
         `
         return cardImg;
@@ -28,8 +24,8 @@ class UI{
 
         const h1Create = document.createElement('h1');
         h1Create.innerHTML = `Results for "${value}"`;
-        h1Create.setAttribute('id', 'search-title')
-        imgContainer.append(h1Create);
+        h1Create.classList.add('search-title');
+        imgContainer.before(h1Create);
 
     }
 
@@ -39,12 +35,14 @@ class UI{
             <a class="fas fa-arrow-up a-position"></a>
         `;
         div.classList.add('origin-position');
-        div.setAttribute('name','go-position');
         imgContainer.append(div);
     }
 
     cleanContainer(){
-        imgContainer.innerHTML = ''
+        imgContainer.innerHTML = '';
+        if(containerTitle.firstElementChild.className == 'search-title'){
+            containerTitle.firstElementChild.remove();
+        }
     }
 
 }
