@@ -22,20 +22,19 @@ class UI{
 
     searchTitle(value){
 
-        const h1Create = document.createElement('h1');
-        h1Create.innerHTML = `Results for "${value}"`;
-        h1Create.classList.add('search-title');
-        imgContainer.before(h1Create);
+        const h2Create = document.createElement('h2');
+        h2Create.innerHTML = `Results for "${value}"`;
+        h2Create.classList.add('search-title');
+        h2Create.setAttribute('id', 'img-title');
+        imgContainer.before(h2Create);
 
     }
 
     OriginPosition(){
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <a class="fas fa-arrow-up a-position"></a>
-        `;
-        div.classList.add('origin-position');
-        imgContainer.append(div);
+        const aElemnt = document.createElement('a');
+        aElemnt.classList.add('fas', 'fa-arrow-up', 'origin-position');
+        aElemnt.setAttribute('name', 'img-name');
+        imgContainer.append(aElemnt);
     }
 
     cleanContainer(){

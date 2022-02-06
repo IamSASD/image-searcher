@@ -1,13 +1,18 @@
-import { searchForm, searchInput, imgContainer, pagination  } from './modules/Selectors.js'
+import { searchForm, searchInput, imgContainer, pagination, logo  } from './modules/Selectors.js'
 import Api from './modules/Api.js'
 import UI from './modules/UI.js';
 
-
+const originPosition = window.location.origin;
 let api;
 let ui;
 
 addEventListeners()
 function addEventListeners(){
+    window.addEventListener('DOMContentLoaded', () => {
+        if(!window.location.origin){
+            window.location.assign(originPosition);
+        }
+    });
     //listen the submit event for the search form 
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -32,21 +37,23 @@ function addEventListeners(){
 
     //button go to top
     imgContainer.addEventListener('click', (e) => {
-        if(e.target.className === 'origin-position' || e.target.className === 'a-position'){
-            window.scroll(0,0);
+        if(e.target.name === 'img-name'){
+            const idLogo = logo.getAttribute('id');
+            window.location.assign(`${originPosition}#${idLogo}`);
         }
     });
-
-    window.addEventListener('scroll', () => {
-        console.log(window.scrollY, window.scrollX);
-    });
-
 }
 
 function manageImages(value){
+    
+    if(value.totalHits == 0){
+        alert('No match founds');
+        window.location.assign(originPosition);
+    }
     //Swhow images in the page
     ui = new UI();
     const { totalHits, hits } = value;
+
     
     for(let i = 0; i < hits.length; i++){
         
@@ -60,12 +67,14 @@ function manageImages(value){
     }
     
     //change the position of the window
-    window.scroll(0,667);
+    const title = document.querySelector('#img-title');
+    const idTitle = title.getAttribute('id');
+    window.location.assign(`${originPosition}#${idTitle}`);
+    // window.scroll(0,667);
 
     //add button to go the original position
     ui.OriginPosition();
 
-    console.log(totalHits, hits);
 }
 
 
